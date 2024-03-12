@@ -1,0 +1,21 @@
+# original from
+# http://www.microbitlearning.com/code/2-i2c-scanner-examples-microbit.php
+# mod to loop and remove button events
+
+from microbit import *
+
+start = 0x00
+end = 0x7F
+
+while True:
+    print("Scanning I2C bus...now..")
+    for i in range(start, end + 1):
+            try:
+                i2c.read(i, 1)
+            except OSError:
+                pass
+            else:
+                print("Found:  [%s]" % hex(i))
+                display.scroll(hex(i))
+    print("Scanning done")
+    sleep(1)
